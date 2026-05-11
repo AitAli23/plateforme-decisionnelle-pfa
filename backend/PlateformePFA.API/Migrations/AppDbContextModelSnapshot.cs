@@ -22,6 +22,41 @@ namespace PlateformePFA.API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("PlateformePFA.API.Models.Absence", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreeLe")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateAbsence")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EtudiantId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Justifiee")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ModuleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NombreHeures")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EtudiantId");
+
+                    b.HasIndex("ModuleId");
+
+                    b.ToTable("Absences");
+                });
+
             modelBuilder.Entity("PlateformePFA.API.Models.Alerte", b =>
                 {
                     b.Property<int>("Id")
@@ -30,20 +65,26 @@ namespace PlateformePFA.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("DateGeneration")
+                    b.Property<DateTime>("CreeLe")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("EtudiantId")
                         .HasColumnType("int");
 
-                    b.Property<float>("ScoreRisque")
-                        .HasColumnType("real");
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Statut")
+                    b.Property<string>("Niveau")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TypeAlerte")
+                    b.Property<bool>("Resolue")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ResolueeLe")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -62,33 +103,32 @@ namespace PlateformePFA.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CNE")
+                    b.Property<string>("Annee")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreeLe")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("FiliereId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Matricule")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Niveau")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Prenom")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Promotion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Statut")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Ville")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -115,16 +155,7 @@ namespace PlateformePFA.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NbEtudiants")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NbModules")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NbSemestres")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ResponsableId")
+                    b.Property<int?>("ResponsableId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -146,25 +177,25 @@ namespace PlateformePFA.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Coefficient")
-                        .HasColumnType("real");
-
-                    b.Property<int>("EnseignantId")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Coefficient")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("FiliereId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Intitule")
+                    b.Property<string>("Niveau")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Semestre")
-                        .HasColumnType("int");
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Semestre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EnseignantId");
 
                     b.HasIndex("FiliereId");
 
@@ -179,9 +210,12 @@ namespace PlateformePFA.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AnneeAcad")
+                    b.Property<string>("Annee")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreeLe")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("EtudiantId")
                         .HasColumnType("int");
@@ -189,12 +223,21 @@ namespace PlateformePFA.API.Migrations
                     b.Property<int>("ModuleId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Session")
+                    b.Property<decimal?>("NoteExamen")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("NoteFinal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("NoteTD")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("NoteTP")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Semestre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Valeur")
-                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
@@ -213,48 +256,29 @@ namespace PlateformePFA.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("DatePrediction")
+                    b.Property<string>("Annee")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Cluster")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("Confiance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreeLe")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("EtudiantId")
                         .HasColumnType("int");
 
-                    b.Property<string>("FeaturesJSON")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal?>("NotePredite")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Modele")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal?>("ScoreRisque")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("Probabilite")
-                        .HasColumnType("real");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EtudiantId");
-
-                    b.ToTable("PredictionsML");
-                });
-
-            modelBuilder.Entity("PlateformePFA.API.Models.Presence", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("EtudiantId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ModuleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Statut")
+                    b.Property<string>("TypeModele")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -262,9 +286,7 @@ namespace PlateformePFA.API.Migrations
 
                     b.HasIndex("EtudiantId");
 
-                    b.HasIndex("ModuleId");
-
-                    b.ToTable("Presences");
+                    b.ToTable("Predictions");
                 });
 
             modelBuilder.Entity("PlateformePFA.API.Models.Utilisateur", b =>
@@ -275,9 +297,15 @@ namespace PlateformePFA.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreeLe")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EstActif")
+                        .HasColumnType("bit");
 
                     b.Property<string>("MotDePasseHash")
                         .IsRequired()
@@ -298,6 +326,25 @@ namespace PlateformePFA.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Utilisateurs");
+                });
+
+            modelBuilder.Entity("PlateformePFA.API.Models.Absence", b =>
+                {
+                    b.HasOne("PlateformePFA.API.Models.Etudiant", "Etudiant")
+                        .WithMany("Absences")
+                        .HasForeignKey("EtudiantId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PlateformePFA.API.Models.Module", "Module")
+                        .WithMany("Absences")
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Etudiant");
+
+                    b.Navigation("Module");
                 });
 
             modelBuilder.Entity("PlateformePFA.API.Models.Alerte", b =>
@@ -327,27 +374,18 @@ namespace PlateformePFA.API.Migrations
                     b.HasOne("PlateformePFA.API.Models.Utilisateur", "Responsable")
                         .WithMany()
                         .HasForeignKey("ResponsableId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Responsable");
                 });
 
             modelBuilder.Entity("PlateformePFA.API.Models.Module", b =>
                 {
-                    b.HasOne("PlateformePFA.API.Models.Utilisateur", "Enseignant")
-                        .WithMany()
-                        .HasForeignKey("EnseignantId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("PlateformePFA.API.Models.Filiere", "Filiere")
                         .WithMany("Modules")
                         .HasForeignKey("FiliereId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Enseignant");
 
                     b.Navigation("Filiere");
                 });
@@ -382,34 +420,15 @@ namespace PlateformePFA.API.Migrations
                     b.Navigation("Etudiant");
                 });
 
-            modelBuilder.Entity("PlateformePFA.API.Models.Presence", b =>
-                {
-                    b.HasOne("PlateformePFA.API.Models.Etudiant", "Etudiant")
-                        .WithMany("Presences")
-                        .HasForeignKey("EtudiantId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("PlateformePFA.API.Models.Module", "Module")
-                        .WithMany("Presences")
-                        .HasForeignKey("ModuleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Etudiant");
-
-                    b.Navigation("Module");
-                });
-
             modelBuilder.Entity("PlateformePFA.API.Models.Etudiant", b =>
                 {
+                    b.Navigation("Absences");
+
                     b.Navigation("Alertes");
 
                     b.Navigation("Notes");
 
                     b.Navigation("PredictionsML");
-
-                    b.Navigation("Presences");
                 });
 
             modelBuilder.Entity("PlateformePFA.API.Models.Filiere", b =>
@@ -421,9 +440,9 @@ namespace PlateformePFA.API.Migrations
 
             modelBuilder.Entity("PlateformePFA.API.Models.Module", b =>
                 {
-                    b.Navigation("Notes");
+                    b.Navigation("Absences");
 
-                    b.Navigation("Presences");
+                    b.Navigation("Notes");
                 });
 #pragma warning restore 612, 618
         }
