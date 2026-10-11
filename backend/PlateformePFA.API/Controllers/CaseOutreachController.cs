@@ -216,10 +216,17 @@ namespace PlateformePFA.API.Controllers
             if (c.Etat != CaseWorkflowState.WaitingStudent)
                 return BadRequest(new { message = "Aucun rendez-vous en attente pour cette intervention." });
 
-            if (dto.Attendance == "Held" &&
-                (!dto.HeldAt.HasValue || dto.HeldAt > DateTime.UtcNow ||
-                 string.IsNullOrWhiteSpace(dto.Outcome) || string.IsNullOrWhiteSpace(dto.Summary)))
-                return BadRequest(new { message = "La date, le résultat et le résumé sont requis." });
+            if (dto.Attendance == "Held")
+            {
+                if (!dto.HeldAt.HasValue)
+                    return BadRequest(new { message = "La date réelle de l'entretien est requise." });
+                if (dto.HeldAt > DateTime.UtcNow)
+                    return BadRequest(new { message = "La date réelle de l'entretien ne peut pas être dans le futur." });
+                if (string.IsNullOrWhiteSpace(dto.Outcome))
+                    return BadRequest(new { message = "Le résultat de l'entretien est requis." });
+                if (string.IsNullOrWhiteSpace(dto.Summary))
+                    return BadRequest(new { message = "Le résumé de l'entretien est requis." });
+            }
 
             var (userId, userName) = CurrentUser();
             c.MeetingAttendance = dto.Attendance;

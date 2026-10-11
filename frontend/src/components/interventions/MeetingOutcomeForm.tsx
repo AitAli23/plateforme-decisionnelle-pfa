@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
+import type { AxiosError } from 'axios'
 import { Icon } from '../ui/Icon'
 import {
   recordMeetingResult, OUTCOMES, type MeetingAttendance,
@@ -48,7 +49,10 @@ export function MeetingOutcomeForm({ caseId, canManage, onChanged }: MeetingOutc
       setSummary('')
       onChanged()
     },
-    onError: () => setError('Impossible d’enregistrer l’entretien.'),
+    onError: (error) => {
+      const message = (error as AxiosError<{ message?: string }>).response?.data?.message
+      setError(message ?? 'Impossible d’enregistrer l’entretien.')
+    },
   })
 
   return (
