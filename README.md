@@ -182,3 +182,14 @@ See `.env.example` for the full annotated list. Required at minimum:
 | Copilot frontend panel | ✅ Integrated |
 | Automated tests | ✅ Backend, ML, and frontend unit suites passing |
 | Playwright end-to-end tests | ⏳ Available, pending full flow coverage |
+
+---
+
+## Authors
+
+Built as a two-person end-of-year project (PFA) at ENIAD Berkane, 2025/2026.
+
+| Author | Contribution |
+|---|---|
+| **Anouar Amghar** ([@anouaramghar](https://github.com/anouaramghar)) | Lead on the ML service (risk classifier, grade forecast, clustering, MLflow), the OLTP → Data Warehouse ETL, the ENIAD Copilot agent (CopilotKit runtime + NVIDIA NIM tools), the frontend architecture and design system, and the project documentation. |
+| **Marouane Ait Ali** ([@AitAli23](https://github.com/AitAli23)) | Initial Docker infrastructure and service skeletons (backend, frontend, ML service, Nginx). ASP.NET Core API controllers: students, grades, attendance, alerts, modules, users, dashboard, predictions. Role-based pages and access rules (Admin, Responsable, Enseignant scoped to their own module and cohort). Student management (CRUD with soft delete, search, filters, CSV import/export), student profile page with the ML grade forecast, alert scanning and resolution, dashboard filters and periods, seeded demo data and its risk labels for the ML models, container startup fixes. |
